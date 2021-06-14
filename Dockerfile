@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 	libzip-dev \
 	zip \
 	unzip \
+	chromium-driver \
 	nginx \
 	supervisor \
 	cron
@@ -44,6 +45,10 @@ RUN docker-php-ext-configure intl \
 # Install PHP zip extension
 RUN docker-php-ext-configure zip \
 	&& docker-php-ext-install zip
+
+# Install PHP imap extension
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+	&& docker-php-ext-install imap iconv
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
