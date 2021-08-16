@@ -77,6 +77,12 @@ RUN php artisan cache:clear
 #RUN echo "memory_limit = -1" > $PHP_INI_DIR/conf.d/memory-limit.ini
 #RUN rm $PHP_INI_DIR/conf.d/memory-limit.ini
 
+# Install Node 16 and npm
+RUN apt --allow-releaseinfo-change update
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get install nodejs -y
+
 # Set right permissions commands
 RUN gpasswd -a "root" www-data
 RUN chown -R "root":www-data /var/www
